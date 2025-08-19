@@ -17,7 +17,6 @@ public class LearningTrackerDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Apply entity configurations
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(LearningTrackerDbContext).Assembly);
     }
 
@@ -25,7 +24,6 @@ public class LearningTrackerDbContext : DbContext
     {
         base.ConfigureConventions(configurationBuilder);
 
-        // Configure value object conversions
         configurationBuilder.Properties<UserId>()
             .HaveConversion<UserIdConverter>();
     }
