@@ -13,32 +13,24 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
         builder.Property(p => p.Id).IsRequired();
         builder.Property(p => p.CreationDate).IsRequired();
         
-        builder.Property(p => p.Name!.FirstName)
-            .HasColumnName("FirstName")
-            .HasMaxLength(100);
-        builder.Property(p => p.Name!.LastName)
-            .HasColumnName("LastName")
-            .HasMaxLength(100);
+        builder.Property(p => p.Name!.FirstName).IsRequired(false).HasMaxLength(100);
+        builder.Property(p => p.Name!.LastName).IsRequired(false).HasMaxLength(100);
         
-        builder.Property(p => p.Address!.City)
-            .HasColumnName("City")
-            .HasMaxLength(100);
-        builder.Property(p => p.Address!.Country)
-            .HasColumnName("Country")
-            .HasMaxLength(100);
+        builder.Property(p => p.Address!.City).IsRequired(false).HasMaxLength(100);
+        builder.Property(p => p.Address!.Country).IsRequired(false).HasMaxLength(100);
         
-        builder.Property(p => p.Email).HasMaxLength(255);
-        builder.Property(p => p.Phone).HasMaxLength(20);
-        builder.Property(p => p.Summary).HasColumnType("text");
-        builder.Property(p => p.Skills).HasColumnType("text[]");
-        builder.Property(p => p.Languages).HasColumnType("text[]");
+        builder.Property(p => p.Email).IsRequired(false).HasMaxLength(255);
+        builder.Property(p => p.Phone).IsRequired(false).HasMaxLength(20);
+        builder.Property(p => p.Summary).IsRequired(false).HasColumnType("text");
+        builder.Property(p => p.Skills).IsRequired(false).HasColumnType("text[]");
+        builder.Property(p => p.Languages).IsRequired(false).HasColumnType("text[]");
         
-        builder.Property(p => p.Experiences).HasColumnType("jsonb");
-        builder.Property(p => p.Educations).HasColumnType("jsonb");
-        builder.Property(p => p.PersonalProjects).HasColumnType("jsonb");
-        builder.Property(p => p.Certifications).HasColumnType("jsonb");
-        builder.Property(p => p.Publications).HasColumnType("jsonb");
-        builder.Property(p => p.Awards).HasColumnType("jsonb");
+        builder.Property(p => p.Experiences).IsRequired(false).HasColumnType("jsonb");
+        builder.Property(p => p.Educations).IsRequired(false).HasColumnType("jsonb");
+        builder.Property(p => p.PersonalProjects).IsRequired(false).HasColumnType("jsonb");
+        builder.Property(p => p.Certifications).IsRequired(false).HasColumnType("jsonb");
+        builder.Property(p => p.Publications).IsRequired(false).HasColumnType("jsonb");
+        builder.Property(p => p.Awards).IsRequired(false).HasColumnType("jsonb");
         
         builder.HasIndex(p => p.CreationDate);
         builder.HasOne<User>()

@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Domain", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Infrastructure", "LearningTracker.Infrastructure\LearningTracker.Infrastructure.csproj", "{9A8E3997-F725-4B04-AA8C-34C39349E605}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Application", "LearningTracker.Application\LearningTracker.Application.csproj", "{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Contracts", "LearningTracker.Contracts\LearningTracker.Contracts.csproj", "{49A48830-8069-4B20-A2E0-596974BE1340}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{9A8E3997-F725-4B04-AA8C-34C39349E605}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A8E3997-F725-4B04-AA8C-34C39349E605}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A8E3997-F725-4B04-AA8C-34C39349E605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49A48830-8069-4B20-A2E0-596974BE1340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49A48830-8069-4B20-A2E0-596974BE1340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49A48830-8069-4B20-A2E0-596974BE1340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49A48830-8069-4B20-A2E0-596974BE1340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
