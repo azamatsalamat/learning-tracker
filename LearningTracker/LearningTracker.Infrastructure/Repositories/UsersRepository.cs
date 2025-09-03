@@ -15,4 +15,8 @@ internal class UsersRepository : IUsersRepository {
     public Task<User?> GetByLogin(string login, CancellationToken ct) {
         return _context.Set<User>().Where(x => x.Login == login).FirstOrDefaultAsync(ct);
     }
+
+    public Task Add(User user, CancellationToken ct) {
+        return _context.Set<User>().AddAsync(user, ct).AsTask();
+    }
 }

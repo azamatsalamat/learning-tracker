@@ -19,6 +19,8 @@ public class Profile {
     public Certification[] Certifications { get; protected set; }
     public Publication[] Publications { get; protected set; }
     public Award[] Awards { get; protected set; }
+    
+    protected Profile() {}
 
     public Profile(UserId id, Name? name, string? email, string? phone, Address? address, string? summary, string[] skills, 
         string[] languages, Experience[] experiences, Education[] educations, PersonalProject[] personalProjects, 

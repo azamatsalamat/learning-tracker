@@ -13,11 +13,19 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
         builder.Property(p => p.Id).IsRequired();
         builder.Property(p => p.CreationDate).IsRequired();
         
-        builder.Property(p => p.Name!.FirstName).IsRequired(false).HasMaxLength(100);
-        builder.Property(p => p.Name!.LastName).IsRequired(false).HasMaxLength(100);
+        builder.ComplexProperty(p => p.Name, b =>
+        {
+            b.IsRequired();
+            b.Property(n => n.FirstName).HasMaxLength(100);
+            b.Property(n => n.LastName).HasMaxLength(100);
+        });
         
-        builder.Property(p => p.Address!.City).IsRequired(false).HasMaxLength(100);
-        builder.Property(p => p.Address!.Country).IsRequired(false).HasMaxLength(100);
+        builder.ComplexProperty(p => p.Address, b =>
+        {
+            b.IsRequired();
+            b.Property(n => n.City).HasMaxLength(100);
+            b.Property(n => n.Country).HasMaxLength(100);
+        });
         
         builder.Property(p => p.Email).IsRequired(false).HasMaxLength(255);
         builder.Property(p => p.Phone).IsRequired(false).HasMaxLength(20);

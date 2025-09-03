@@ -1,6 +1,7 @@
 using LearningTracker.Application;
 using LearningTracker.Infrastructure;
 using LearningTracker.Infrastructure.DataAccess;
+using Microsoft.AspNetCore.Identity;
 
 namespace LearningTracker.Api;
 
@@ -13,8 +14,8 @@ public class Program {
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        
         builder.Services.AddApplication();
+        builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
 
         var app = builder.Build();
         if (app.Environment.IsDevelopment()) {
