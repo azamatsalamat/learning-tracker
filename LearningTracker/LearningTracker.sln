@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Contracts", "LearningTracker.Contracts\LearningTracker.Contracts.csproj", "{49A48830-8069-4B20-A2E0-596974BE1340}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Application.Tests", "LearningTracker.Application.Tests\LearningTracker.Application.Tests.csproj", "{DC2A175E-2182-48F5-A174-F570AAC102B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{49A48830-8069-4B20-A2E0-596974BE1340}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49A48830-8069-4B20-A2E0-596974BE1340}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49A48830-8069-4B20-A2E0-596974BE1340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC2A175E-2182-48F5-A174-F570AAC102B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC2A175E-2182-48F5-A174-F570AAC102B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC2A175E-2182-48F5-A174-F570AAC102B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC2A175E-2182-48F5-A174-F570AAC102B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
