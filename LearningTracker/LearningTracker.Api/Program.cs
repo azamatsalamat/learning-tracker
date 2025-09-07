@@ -1,7 +1,10 @@
+using LearningTracker.Api.Configurations;
 using LearningTracker.Application;
 using LearningTracker.Infrastructure;
-using LearningTracker.Infrastructure.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LearningTracker.Api;
 
@@ -15,6 +18,26 @@ public class Program {
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddApplication();
+
+        builder.Services.AddAuthentication(o => {
+            o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+        {
+            var authOptions = builder.Configuration.GetSection("Auth").Get<AuthOptions>()!;
+            options.Authority = authOptions.Issuer;
+            options.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidIssuer = authOptions.Issuer,
+                ValidAudience = authOptions.Audience,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidateLifetime = true,
+                IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(authOptions.Key))
+            };
+            options.Configuration = new OpenIdConnectConfiguration();
+        });
+
         builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
 
         var app = builder.Build();

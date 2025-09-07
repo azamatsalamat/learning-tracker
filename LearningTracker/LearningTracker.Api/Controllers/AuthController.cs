@@ -1,5 +1,6 @@
 using CSharpFunctionalExtensions;
 using LearningTracker.Api.Controllers._base;
+using LearningTracker.Application.UseCases.Auth.Login;
 using LearningTracker.Application.UseCases.Auth.Register;
 using LearningTracker.Contracts.Auth;
 using MediatR;
@@ -19,13 +20,18 @@ public class AuthController : LearningTrackerControllerBase
 
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IActionResult Login()
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        return HandleResult(Result.Success());
+        var result = await _mediator.Send(new LoginCommand(request.Login, request.Password));
+        if (result.IsSuccess)
+        {
+            var accessToken = _
+        }
+        return HandleResult(result);
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterUserRequest request) 
+    public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
     {
         var result = await _mediator.Send(new RegisterUserCommand(request.Login, request.Password));
         return HandleResult(result);

@@ -24,7 +24,7 @@ internal class RegisterUserCommandValidator : ValidationBehavior<RegisterUserCom
         var user = await _users.GetByLogin(command.Login, ct);
         if (user != null)
         {
-            return Result.Failure("User with this login already exists");
+            return Result.Failure(ErrorMessages.UserAlreadyExists);
         }
 
         return await base.RequestValidateAsync(command, ct);
