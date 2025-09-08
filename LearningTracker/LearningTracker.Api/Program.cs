@@ -38,7 +38,7 @@ public class Program {
             options.Configuration = new OpenIdConnectConfiguration();
         });
 
-        builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
+        builder.Services.AddPresentation(builder.Configuration);
 
         var app = builder.Build();
         if (app.Environment.IsDevelopment()) {
