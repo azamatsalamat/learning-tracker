@@ -41,10 +41,4 @@ public class AuthController : LearningTrackerControllerBase
         var result = await _mediator.Send(new RegisterUserCommand(request.Login, request.Password));
         return HandleResult(result);
     }
-
-    [HttpPost("logout")]
-    public IActionResult Logout()
-    {
-        return HandleResult(Result.Success());
-    }
 }
