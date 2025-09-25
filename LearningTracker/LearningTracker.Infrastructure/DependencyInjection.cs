@@ -1,8 +1,10 @@
 using LearningTracker.Application.Services;
+using LearningTracker.Application.Services.TextExtractors;
 using LearningTracker.Domain.Repositories;
 using LearningTracker.Infrastructure.DataAccess;
 using LearningTracker.Infrastructure.Repositories;
 using LearningTracker.Infrastructure.Services;
+using LearningTracker.Infrastructure.Services.TextExtractors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,20 +14,21 @@ namespace LearningTracker.Infrastructure;
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration configuration)
     {
         services.AddLearningTrackerDbContext(configuration);
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
+        services.AddScoped<ITextExtractor, PdfTextExtractor>();
+
         services.AddScoped<IUsersRepository, UsersRepository>();
-        
+
         return services;
     }
-    
+
     private static IServiceCollection AddLearningTrackerDbContext(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration configuration)
     {
         services.AddDbContext<LearningTrackerDbContext>(options =>

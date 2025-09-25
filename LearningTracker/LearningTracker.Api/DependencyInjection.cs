@@ -13,6 +13,7 @@ public static class DependencyInjection
 
         services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
         services.AddScoped<ITokenProvider, TokenProvider>();
+        services.AddScoped<TextExtractorService>();
 
         return services;
     }

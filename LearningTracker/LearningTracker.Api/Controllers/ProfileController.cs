@@ -1,6 +1,6 @@
 using LearningTracker.Api.Controllers._base;
 using LearningTracker.Api.Services;
-using LearningTracker.Application.UseCases.Profile.ParseCv;
+using LearningTracker.Application.UseCases.Profile.ParseResume;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +17,12 @@ public class ProfileController : LearningTrackerControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost("parse")]
-    public async Task<IActionResult> ParseCv([FromForm] IFormFile file, [FromServices] TextExtractorService textExtractor,
+    [HttpPost("parse-resume")]
+    public async Task<IActionResult> ParseResume(IFormFile file, [FromServices] TextExtractorService textExtractor,
         CancellationToken ct)
     {
         var text = await textExtractor.ExtractTextAsync(file, ct);
-        var result = await _mediator.Send(new ParseCvToProfileCommand(text), ct);
+        var result = await _mediator.Send(new ParseResumeToProfileCommand(text), ct);
         return HandleResult(result);
     }
 }

@@ -1,4 +1,5 @@
 using LearningTracker.Application.Services;
+using LearningTracker.Application.Services.TextExtractors;
 
 namespace LearningTracker.Api.Services;
 

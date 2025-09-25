@@ -1,4 +1,4 @@
-namespace LearningTracker.Application.Services;
+namespace LearningTracker.Application.Services.TextExtractors;
 
 public interface ITextExtractor
 {
