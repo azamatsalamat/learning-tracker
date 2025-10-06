@@ -1,6 +1,6 @@
 using LearningTracker.Features.Users;
 
-namespace LearningTracker.Shared.Services.Base;
+namespace LearningTracker.Services.Base;
 
 public interface ITokenProvider
 {

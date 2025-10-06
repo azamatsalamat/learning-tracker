@@ -1,9 +1,10 @@
 using FluentValidation;
-using LearningTracker.Api.Configurations;
 using LearningTracker.Behaviors;
+using LearningTracker.Configurations;
 using LearningTracker.Database;
-using LearningTracker.Shared.Services;
-using LearningTracker.Shared.Services.Base;
+using LearningTracker.Services;
+using LearningTracker.Services.Base;
+using LearningTracker.Services.TextExtractors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +60,8 @@ public class Program
 
         builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
         builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+        builder.Services.AddScoped<TextExtractorService>();
+        builder.Services.AddScoped<ITextExtractor, PdfTextExtractor>();
 
         var app = builder.Build();
 

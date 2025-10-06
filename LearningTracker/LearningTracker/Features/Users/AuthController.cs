@@ -1,6 +1,6 @@
 using CSharpFunctionalExtensions;
+using LearningTracker.Services.Base;
 using LearningTracker.Shared;
-using LearningTracker.Shared.Services.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

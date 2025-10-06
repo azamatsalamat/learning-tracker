@@ -1,4 +1,4 @@
-namespace LearningTracker.Api.Configurations;
+namespace LearningTracker.Configurations;
 
 public class AuthOptions
 {

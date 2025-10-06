@@ -1,0 +1,8 @@
+namespace LearningTracker.Domain.Entities;
+
+public class Publication {
+    public string Title { get; protected set; }
+    public string Description { get; protected set; }
+    public string[] Authors { get; protected set; }
+    public string? Link { get; protected set; }
+}
