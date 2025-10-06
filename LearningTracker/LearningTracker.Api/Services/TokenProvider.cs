@@ -1,13 +1,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using LearningTracker.Api.Configurations;
-using LearningTracker.Api.Services.Base;
-using LearningTracker.Domain.Entities;
+using LearningTracker.Configurations;
+using LearningTracker.Features.Users;
+using LearningTracker.Services.Base;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace LearningTracker.Api.Services;
+namespace LearningTracker.Services;
 
 public class TokenProvider : ITokenProvider
 {

@@ -1,18 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Api", "LearningTracker.Api\LearningTracker.Api.csproj", "{245CF3CA-FC05-4518-BE26-ECBEECA289A7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Domain", "LearningTracker.Domain\LearningTracker.Domain.csproj", "{39F39890-8ADC-46D4-A22B-D26BAFA0EEE1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Infrastructure", "LearningTracker.Infrastructure\LearningTracker.Infrastructure.csproj", "{9A8E3997-F725-4B04-AA8C-34C39349E605}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Application", "LearningTracker.Application\LearningTracker.Application.csproj", "{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Contracts", "LearningTracker.Contracts\LearningTracker.Contracts.csproj", "{49A48830-8069-4B20-A2E0-596974BE1340}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Application.Tests", "LearningTracker.Application.Tests\LearningTracker.Application.Tests.csproj", "{DC2A175E-2182-48F5-A174-F570AAC102B6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker", "LearningTracker\LearningTracker.csproj", "{7B070938-1122-4C4C-9915-A80EAFB2F796}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTracker.Api", "LearningTracker.Api\LearningTracker.Api.csproj", "{7B070938-1122-4C4C-9915-A80EAFB2F796}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,33 +8,11 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{245CF3CA-FC05-4518-BE26-ECBEECA289A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{245CF3CA-FC05-4518-BE26-ECBEECA289A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{245CF3CA-FC05-4518-BE26-ECBEECA289A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{245CF3CA-FC05-4518-BE26-ECBEECA289A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39F39890-8ADC-46D4-A22B-D26BAFA0EEE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39F39890-8ADC-46D4-A22B-D26BAFA0EEE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39F39890-8ADC-46D4-A22B-D26BAFA0EEE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39F39890-8ADC-46D4-A22B-D26BAFA0EEE1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A8E3997-F725-4B04-AA8C-34C39349E605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A8E3997-F725-4B04-AA8C-34C39349E605}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A8E3997-F725-4B04-AA8C-34C39349E605}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A8E3997-F725-4B04-AA8C-34C39349E605}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2E97383-2B3D-4D02-8C35-0BCC5BA9A69A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{49A48830-8069-4B20-A2E0-596974BE1340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49A48830-8069-4B20-A2E0-596974BE1340}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49A48830-8069-4B20-A2E0-596974BE1340}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49A48830-8069-4B20-A2E0-596974BE1340}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC2A175E-2182-48F5-A174-F570AAC102B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC2A175E-2182-48F5-A174-F570AAC102B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC2A175E-2182-48F5-A174-F570AAC102B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC2A175E-2182-48F5-A174-F570AAC102B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B070938-1122-4C4C-9915-A80EAFB2F796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B070938-1122-4C4C-9915-A80EAFB2F796}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B070938-1122-4C4C-9915-A80EAFB2F796}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B070938-1122-4C4C-9915-A80EAFB2F796}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

@@ -1,7 +1,6 @@
-using LearningTracker.Application.Services;
-using LearningTracker.Application.Services.TextExtractors;
+using LearningTracker.Services.Base;
 
-namespace LearningTracker.Api.Services;
+namespace LearningTracker.Services;
 
 public class TextExtractorService
 {

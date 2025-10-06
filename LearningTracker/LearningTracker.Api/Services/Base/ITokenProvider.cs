@@ -1,6 +1,6 @@
-using LearningTracker.Domain.Entities;
+using LearningTracker.Features.Users;
 
-namespace LearningTracker.Api.Services.Base;
+namespace LearningTracker.Services.Base;
 
 public interface ITokenProvider
 {
