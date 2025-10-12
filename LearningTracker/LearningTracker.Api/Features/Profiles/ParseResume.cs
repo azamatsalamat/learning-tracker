@@ -1,6 +1,8 @@
 using CSharpFunctionalExtensions;
 using FluentValidation;
+using LearningTracker.Database;
 using LearningTracker.Features.Profiles.Entities;
+using LearningTracker.Services;
 using MediatR;
 
 namespace LearningTracker.Features.Profiles;
@@ -17,11 +19,25 @@ public static class ParseResume
         }
     }
 
-    internal class Handler : IRequestHandler<Command, Result<Profile>>
+    internal sealed class Handler : IRequestHandler<Command, Result<Profile>>
     {
-        public Task<Result<Profile>> Handle(Command request, CancellationToken cancellationToken)
+        private readonly IResumeParser _resumeParser;
+        private readonly LearningTrackerDbContext _dbContext;
+
+        public Handler(IResumeParser resumeParser, LearningTrackerDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _resumeParser = resumeParser;
+            _dbContext = dbContext;
+        }
+
+        public async Task<Result<Profile>> Handle(Command request, CancellationToken ct)
+        {
+            var profile = _resumeParser.Parse(request.Content);
+
+            _dbContext.Set<Profile>().Add(profile);
+            await _dbContext.SaveChangesAsync(ct);
+
+            return Result.Success(profile);
         }
     }
 }

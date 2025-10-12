@@ -4,6 +4,7 @@ using LearningTracker.Configurations;
 using LearningTracker.Database;
 using LearningTracker.Services;
 using LearningTracker.Services.Base;
+using LearningTracker.Services.ResumeParsers;
 using LearningTracker.Services.TextExtractors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -62,6 +63,7 @@ public class Program
         builder.Services.AddScoped<ITokenProvider, TokenProvider>();
         builder.Services.AddScoped<TextExtractorService>();
         builder.Services.AddScoped<ITextExtractor, PdfTextExtractor>();
+        builder.Services.AddScoped<IResumeParser, BasicResumeParser>();
 
         var app = builder.Build();
 
