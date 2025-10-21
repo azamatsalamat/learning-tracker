@@ -13,9 +13,8 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
         builder.Property(p => p.Id).IsRequired();
         builder.Property(p => p.CreationDate).IsRequired();
         builder.Property(p => p.Email);
-        builder.Property(p => p.Phone)
-            .HasMaxLength(50);
-        builder.ComplexProperty(p => p.Name, nameBuilder =>
+        builder.Property(p => p.Phone).HasMaxLength(50);
+        builder.OwnsOne(p => p.Name, nameBuilder =>
         {
             nameBuilder.Property(n => n.FirstName);
             nameBuilder.Property(n => n.LastName);
@@ -26,29 +25,13 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
             addressBuilder.Property(a => a.Country);
         });
         builder.Property(p => p.Summary);
-        builder.Property(p => p.Skills)
-            .HasColumnType("jsonb")
-            .IsRequired();
-        builder.Property(p => p.Languages)
-            .HasColumnType("jsonb")
-            .IsRequired();
-        builder.Property(p => p.Experiences)
-            .HasColumnType("jsonb")
-            .IsRequired();
-        builder.Property(p => p.Educations)
-            .HasColumnType("jsonb")
-            .IsRequired();
-        builder.Property(p => p.PersonalProjects)
-            .HasColumnType("jsonb")
-            .IsRequired();
-        builder.Property(p => p.Certifications)
-            .HasColumnType("jsonb")
-            .IsRequired();
-        builder.Property(p => p.Publications)
-            .HasColumnType("jsonb")
-            .IsRequired();
-        builder.Property(p => p.Awards)
-            .HasColumnType("jsonb")
-            .IsRequired();
+        builder.Property(p => p.Skills).HasColumnType("jsonb");
+        builder.Property(p => p.Languages).HasColumnType("jsonb");
+        builder.Property(p => p.Experiences).HasColumnType("jsonb");
+        builder.Property(p => p.Educations).HasColumnType("jsonb");
+        builder.Property(p => p.PersonalProjects).HasColumnType("jsonb");
+        builder.Property(p => p.Certifications).HasColumnType("jsonb");
+        builder.Property(p => p.Publications).HasColumnType("jsonb");
+        builder.Property(p => p.Awards).HasColumnType("jsonb");
     }
 }

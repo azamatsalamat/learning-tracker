@@ -8,15 +8,15 @@ CREATE TABLE "User" (
 CREATE TABLE "Profile" (
     "Id" UUID PRIMARY KEY,
     "CreationDate" TIMESTAMP NOT NULL,
-    "FirstName" VARCHAR(100),
-    "LastName" VARCHAR(100),
+    "Name_FirstName" VARCHAR(100),
+    "Name_LastName" VARCHAR(100),
     "Email" VARCHAR(255),
     "Phone" VARCHAR(20),
-    "City" VARCHAR(100),
-    "Country" VARCHAR(100),
+    "Address_City" VARCHAR(100),
+    "Address_Country" VARCHAR(100),
     "Summary" TEXT,
-    "Skills" TEXT[],
-    "Languages" TEXT[],
+    "Skills" JSONB,
+    "Languages" JSONB,
     "Experiences" JSONB,
     "Educations" JSONB,
     "PersonalProjects" JSONB,
@@ -25,6 +25,6 @@ CREATE TABLE "Profile" (
     "Awards" JSONB
 );
 
-ALTER TABLE "Profile" 
-ADD CONSTRAINT "FK_Profile_User_Id" 
+ALTER TABLE "Profile"
+ADD CONSTRAINT "FK_Profile_User_Id"
 FOREIGN KEY ("Id") REFERENCES "User"("Id") ON DELETE CASCADE;

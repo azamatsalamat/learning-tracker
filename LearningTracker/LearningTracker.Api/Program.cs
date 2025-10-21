@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 
 namespace LearningTracker;
 
@@ -22,9 +23,16 @@ public class Program
 
         builder.Services.AddAuthorization();
         builder.Services.AddDbContext<LearningTrackerDbContext>(options =>
+        {
+            var dataSourceBuilder = new NpgsqlDataSourceBuilder(
+                builder.Configuration.GetConnectionString("DefaultConnection"));
+            dataSourceBuilder.EnableDynamicJson();
+            var dataSource = dataSourceBuilder.Build();
+
             options.UseNpgsql(
-                builder.Configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly("LearningTracker.Api")));
+                dataSource,
+                b => b.MigrationsAssembly("LearningTracker.Api"));
+        });
 
         var assembly = typeof(Program).Assembly;
         builder.Services.AddMediatR(config =>
