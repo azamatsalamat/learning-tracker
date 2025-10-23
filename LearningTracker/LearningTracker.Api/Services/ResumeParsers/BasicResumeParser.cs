@@ -42,7 +42,6 @@ public class BasicResumeParser : IResumeParser
         var awards = ExtractAwards(sections);
 
         return new Profile(
-            Guid.NewGuid(),
             name,
             email,
             phone,
@@ -163,7 +162,6 @@ public class BasicResumeParser : IResumeParser
                 var skills = new List<string>();
                 foreach (var line in lines)
                 {
-                    // Handle "Category: skill1, skill2" format
                     if (line.Contains(':'))
                     {
                         var parts = line.Split(':', 2);
@@ -177,7 +175,6 @@ public class BasicResumeParser : IResumeParser
                     }
                     else
                     {
-                        // Split by common delimiters
                         var items = line.Split(new[] { ',', '|', '•', '·' },
                             StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                         skills.AddRange(items);
@@ -209,7 +206,6 @@ public class BasicResumeParser : IResumeParser
     {
         var experiences = new List<Experience>();
 
-        // Handle both "Work Experience" and "Volunteering Experience"
         var expKeys = new[] { "work experience", "experience", "volunteering experience" };
 
         foreach (var key in expKeys)
@@ -238,10 +234,8 @@ public class BasicResumeParser : IResumeParser
         {
             var line = lines[i];
 
-            // Check if this is a position title line (contains date range)
             if (ContainsDateRange(line))
             {
-                // Save previous experience if exists
                 if (currentPosition != null && currentCompany != null)
                 {
                     experiences.Add(new Experience(
@@ -257,7 +251,6 @@ public class BasicResumeParser : IResumeParser
                     responsibilities.Clear();
                 }
 
-                // Parse position and date range
                 var parts = line.Split(new[] { '\t', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 var dateIndex = -1;
 
@@ -283,24 +276,20 @@ public class BasicResumeParser : IResumeParser
                     currentPosition = line;
                 }
             }
-            // Check if this is company/location line (next line after position)
             else if (currentPosition != null && currentCompany == null)
             {
-                // This line contains company and location
                 currentCompany = line.Split(new[] { "  " }, StringSplitOptions.RemoveEmptyEntries)[0].Trim();
                 if (line.Contains("Astana") || line.Contains("Kazakhstan"))
                 {
                     location = "Astana, Kazakhstan";
                 }
             }
-            // This is a bullet point/responsibility
             else if (line.StartsWith("•"))
             {
                 responsibilities.Add(line.TrimStart('•').Trim());
             }
         }
 
-        // Add last experience
         if (currentPosition != null && currentCompany != null)
         {
             experiences.Add(new Experience(
@@ -569,7 +558,6 @@ public class BasicResumeParser : IResumeParser
 
     private bool ContainsDateRange(string line)
     {
-        // Check for date patterns like "Apr 2023 – Present", "Aug 2021 – Jun 2023", "Feb 2021"
         return Regex.IsMatch(line, @"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{4}");
     }
 

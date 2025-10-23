@@ -1,6 +1,7 @@
 using LearningTracker.Domain.Entities;
 using LearningTracker.Domain.ValueObjects;
 using LearningTracker.Features.Profiles.ValueObjects;
+using SequentialGuid;
 
 namespace LearningTracker.Features.Profiles.Entities;
 
@@ -23,11 +24,29 @@ public class Profile {
 
     protected Profile() {}
 
-    public Profile(Guid id, Name? name, string? email, string? phone, Address? address, string? summary, string[] skills,
+    public Profile(Name? name, string? email, string? phone, Address? address, string? summary, string[] skills,
         string[] languages, Experience[] experiences, Education[] educations, PersonalProject[] personalProjects,
         Certification[] certifications, Publication[] publications, Award[] awards) {
-        Id = id;
+        Id = SequentialGuidGenerator.Instance.NewGuid();
         CreationDate = DateTime.UtcNow;
+        Name = name;
+        Email = email;
+        Phone = phone;
+        Address = address;
+        Summary = summary;
+        Skills = skills;
+        Languages = languages;
+        Experiences = experiences;
+        Educations = educations;
+        PersonalProjects = personalProjects;
+        Certifications = certifications;
+        Publications = publications;
+        Awards = awards;
+    }
+
+    public void Edit(Name? name, string? email, string? phone, Address? address, string? summary, string[] skills,
+        string[] languages, Experience[] experiences, Education[] educations, PersonalProject[] personalProjects,
+        Certification[] certifications, Publication[] publications, Award[] awards) {
         Name = name;
         Email = email;
         Phone = phone;

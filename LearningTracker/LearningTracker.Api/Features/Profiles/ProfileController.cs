@@ -1,4 +1,3 @@
-using LearningTracker.Features.Users;
 using LearningTracker.Services;
 using LearningTracker.Shared;
 using MediatR;
@@ -18,11 +17,17 @@ public class ProfileController : LearningTrackerControllerBase
     }
 
     [HttpPost("parse-resume")]
-    public async Task<IActionResult> ParseResume(IFormFile file, [FromServices] TextExtractorService textExtractor,
-        CancellationToken ct)
+    public async Task<IActionResult> ParseResume(IFormFile file, [FromServices] TextExtractorService textExtractor, CancellationToken ct)
     {
         var text = await textExtractor.ExtractTextAsync(file, ct);
         var result = await _mediator.Send(new ParseResume.Command(text), ct);
+        return HandleResult(result);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] Update.Command request, CancellationToken ct)
+    {
+        var result = await _mediator.Send(request, ct);
         return HandleResult(result);
     }
 }
