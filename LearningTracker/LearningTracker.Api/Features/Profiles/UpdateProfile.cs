@@ -56,7 +56,7 @@ public static class UpdateProfile
         Award[] Awards
     ) : IRequest<Result>;
 
-    public class Validator : AbstractValidator<Command>
+    internal class Validator : AbstractValidator<Command>
     {
         public Validator()
         {

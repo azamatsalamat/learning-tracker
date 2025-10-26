@@ -19,15 +19,22 @@ public class AuthController : LearningTrackerControllerBase
         _tokenProvider = tokenProvider;
     }
 
+    /// <summary>
+    /// Register user
+    /// </summary>
     [HttpPost("register")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken ct)
     {
         var result = await _mediator.Send(new Register.Command(request.Login, request.Password), ct);
         return HandleResult(result);
     }
 
+    /// <summary>
+    /// Login user
+    /// </summary>
     [HttpPost("login")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
     public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken ct)
     {
         var result = await _mediator.Send(new Login.Command(request.Login, request.Password), ct);
