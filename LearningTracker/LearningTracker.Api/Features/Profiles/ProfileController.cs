@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LearningTracker.Features.Profiles;
 
 [ApiController]
-[Route("api/auth")]
+[Route("api/profile")]
 public class ProfileController : LearningTrackerControllerBase
 {
     private readonly IMediator _mediator;
