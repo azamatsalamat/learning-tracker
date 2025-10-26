@@ -327,3 +327,6 @@ jspm_packages/
 # IDE and editor settings
 .vscode/
 .cursor/
+
+# AI settings
+.claude/

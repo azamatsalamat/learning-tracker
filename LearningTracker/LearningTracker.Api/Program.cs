@@ -1,23 +1,48 @@
-using LearningTracker.Api.Configurations;
-using LearningTracker.Application;
-using LearningTracker.Infrastructure;
+using FluentValidation;
+using LearningTracker.Behaviors;
+using LearningTracker.Configurations;
+using LearningTracker.Database;
+using LearningTracker.Services;
+using LearningTracker.Services.Base;
+using LearningTracker.Services.ResumeParsers;
+using LearningTracker.Services.TextExtractors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 
-namespace LearningTracker.Api;
+namespace LearningTracker;
 
-public class Program {
-    public static void Main(string[] args) {
+public class Program
+{
+    public static void Main(string[] args)
+    {
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddAuthorization();
-        builder.Services.AddInfrastructure(builder.Configuration);
-        builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        builder.Services.AddApplication();
+        builder.Services.AddDbContext<LearningTrackerDbContext>(options =>
+        {
+            var dataSourceBuilder = new NpgsqlDataSourceBuilder(
+                builder.Configuration.GetConnectionString("DefaultConnection"));
+            dataSourceBuilder.EnableDynamicJson();
+            var dataSource = dataSourceBuilder.Build();
+
+            options.UseNpgsql(
+                dataSource,
+                b => b.MigrationsAssembly("LearningTracker.Api"));
+        });
+
+        var assembly = typeof(Program).Assembly;
+        builder.Services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssembly(assembly);
+            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+        });
+        builder.Services.AddValidatorsFromAssembly(assembly);
+
+        builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection("Auth"));
 
         builder.Services.AddAuthentication(o => {
             o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -38,13 +63,24 @@ public class Program {
             options.Configuration = new OpenIdConnectConfiguration();
         });
 
-        builder.Services.AddPresentation(builder.Configuration);
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddControllers();
+        builder.Services.AddSwaggerGen();
+
+        builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
+        builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+        builder.Services.AddScoped<TextExtractorService>();
+        builder.Services.AddScoped<ITextExtractor, PdfTextExtractor>();
+        builder.Services.AddScoped<IResumeParser, BasicResumeParser>();
 
         var app = builder.Build();
-        if (app.Environment.IsDevelopment()) {
+
+        if (app.Environment.IsDevelopment())
+        {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();

@@ -1,4 +1,0 @@
-GET http://localhost:5046/weatherforecast/
-Accept: application/json
-
-###
