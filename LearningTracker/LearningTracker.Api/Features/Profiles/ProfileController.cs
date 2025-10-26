@@ -25,7 +25,7 @@ public class ProfileController : LearningTrackerControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] Update.Command request, CancellationToken ct)
+    public async Task<IActionResult> Update([FromBody] UpdateProfile.Command request, CancellationToken ct)
     {
         var result = await _mediator.Send(request, ct);
         return HandleResult(result);

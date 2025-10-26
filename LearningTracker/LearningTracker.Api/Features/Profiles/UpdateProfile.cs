@@ -37,7 +37,7 @@ public record CertificationDto(string Name, string Issuer, DateTime IssueDate, D
 public record PublicationDto(string Title, string Description, string[]? Authors, string? Link);
 public record AwardDto(string Name, string Issuer, DateTime Date, string? Description);
 
-public static class Update
+public static class UpdateProfile
 {
     public record Command(
         Guid Id,

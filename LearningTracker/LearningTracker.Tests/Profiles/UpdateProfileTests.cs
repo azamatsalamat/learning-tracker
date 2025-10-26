@@ -8,7 +8,7 @@ using LearningTracker.Features.Profiles.Enums;
 using LearningTracker.Features.Profiles.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningTracker.Tests;
+namespace LearningTracker.Tests.Profiles;
 
 public class UpdateProfileTests
 {
@@ -18,7 +18,7 @@ public class UpdateProfileTests
     public void Validator_Should_Fail_When_Id_Is_Empty()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Id = Guid.Empty };
 
         // Act
@@ -26,14 +26,14 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.Id));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.Id));
     }
 
     [Fact]
     public void Validator_Should_Fail_When_Email_Has_Invalid_Format()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Email = "invalid-email" };
 
         // Act
@@ -41,7 +41,7 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.Email));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.Email));
     }
 
     [Theory]
@@ -51,49 +51,49 @@ public class UpdateProfileTests
     public void Validator_Should_Pass_When_Email_Has_Valid_Format(string email)
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Email = email };
 
         // Act
         var result = validator.Validate(command);
 
         // Assert
-        result.Errors.Should().NotContain(e => e.PropertyName == nameof(Update.Command.Email));
+        result.Errors.Should().NotContain(e => e.PropertyName == nameof(UpdateProfile.Command.Email));
     }
 
     [Fact]
     public void Validator_Should_Pass_When_Email_Is_Null()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Email = null };
 
         // Act
         var result = validator.Validate(command);
 
         // Assert
-        result.Errors.Should().NotContain(e => e.PropertyName == nameof(Update.Command.Email));
+        result.Errors.Should().NotContain(e => e.PropertyName == nameof(UpdateProfile.Command.Email));
     }
 
     [Fact]
     public void Validator_Should_Pass_When_Email_Is_Empty_String()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Email = "" };
 
         // Act
         var result = validator.Validate(command);
 
         // Assert
-        result.Errors.Should().NotContain(e => e.PropertyName == nameof(Update.Command.Email));
+        result.Errors.Should().NotContain(e => e.PropertyName == nameof(UpdateProfile.Command.Email));
     }
 
     [Fact]
     public void Validator_Should_Fail_When_Skills_Is_Null()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Skills = null! };
 
         // Act
@@ -101,14 +101,14 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.Skills));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.Skills));
     }
 
     [Fact]
     public void Validator_Should_Fail_When_Languages_Is_Null()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Languages = null! };
 
         // Act
@@ -116,14 +116,14 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.Languages));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.Languages));
     }
 
     [Fact]
     public void Validator_Should_Fail_When_Experiences_Is_Null()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Experiences = null! };
 
         // Act
@@ -131,14 +131,14 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.Experiences));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.Experiences));
     }
 
     [Fact]
     public void Validator_Should_Fail_When_Educations_Is_Null()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Educations = null! };
 
         // Act
@@ -146,14 +146,14 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.Educations));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.Educations));
     }
 
     [Fact]
     public void Validator_Should_Fail_When_PersonalProjects_Is_Null()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { PersonalProjects = null! };
 
         // Act
@@ -161,14 +161,14 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.PersonalProjects));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.PersonalProjects));
     }
 
     [Fact]
     public void Validator_Should_Fail_When_Certifications_Is_Null()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Certifications = null! };
 
         // Act
@@ -176,14 +176,14 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.Certifications));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.Certifications));
     }
 
     [Fact]
     public void Validator_Should_Fail_When_Publications_Is_Null()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Publications = null! };
 
         // Act
@@ -191,14 +191,14 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.Publications));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.Publications));
     }
 
     [Fact]
     public void Validator_Should_Fail_When_Awards_Is_Null()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with { Awards = null! };
 
         // Act
@@ -206,14 +206,14 @@ public class UpdateProfileTests
 
         // Assert
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.PropertyName == nameof(Update.Command.Awards));
+        result.Errors.Should().Contain(e => e.PropertyName == nameof(UpdateProfile.Command.Awards));
     }
 
     [Fact]
     public void Validator_Should_Pass_When_All_Fields_Are_Valid()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand();
 
         // Act
@@ -227,7 +227,7 @@ public class UpdateProfileTests
     public void Validator_Should_Pass_When_Arrays_Are_Empty()
     {
         // Arrange
-        var validator = new Update.Validator();
+        var validator = new UpdateProfile.Validator();
         var command = CreateValidCommand() with
         {
             Skills = Array.Empty<string>(),
@@ -256,7 +256,7 @@ public class UpdateProfileTests
     {
         // Arrange
         await using var context = CreateInMemoryContext();
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
         var command = CreateValidCommand();
 
         // Act
@@ -284,7 +284,7 @@ public class UpdateProfileTests
         var updatedSkills = new[] { "Python", "Django", "FastAPI" };
         var updatedLanguages = new[] { "English", "Spanish" };
 
-        var command = new Update.Command(
+        var command = new UpdateProfile.Command(
             existingProfile.Id,
             updatedName,
             updatedEmail,
@@ -301,7 +301,7 @@ public class UpdateProfileTests
             Array.Empty<Award>()
         );
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -358,7 +358,7 @@ public class UpdateProfileTests
             Experiences = updatedExperiences
         };
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -403,7 +403,7 @@ public class UpdateProfileTests
             Educations = updatedEducations
         };
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -448,7 +448,7 @@ public class UpdateProfileTests
             PersonalProjects = updatedProjects
         };
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -497,7 +497,7 @@ public class UpdateProfileTests
             Certifications = updatedCertifications
         };
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -537,7 +537,7 @@ public class UpdateProfileTests
             Publications = updatedPublications
         };
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -582,7 +582,7 @@ public class UpdateProfileTests
             Awards = updatedAwards
         };
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -618,7 +618,7 @@ public class UpdateProfileTests
             Awards = Array.Empty<Award>()
         };
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -656,7 +656,7 @@ public class UpdateProfileTests
             Summary = null
         };
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -687,7 +687,7 @@ public class UpdateProfileTests
             Email = "persisted@example.com"
         };
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         await handler.Handle(command, CancellationToken.None);
@@ -712,7 +712,7 @@ public class UpdateProfileTests
         await context.SaveChangesAsync();
 
         var command = CreateValidCommand() with { Id = existingProfile.Id };
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         await handler.Handle(command, CancellationToken.None);
@@ -732,7 +732,7 @@ public class UpdateProfileTests
         context.Set<Profile>().Add(existingProfile);
         await context.SaveChangesAsync();
 
-        var command = new Update.Command(
+        var command = new UpdateProfile.Command(
             existingProfile.Id,
             new Name("Complex", "Update"),
             "complex@example.com",
@@ -770,7 +770,7 @@ public class UpdateProfileTests
             }
         );
 
-        var handler = new Update.Handler(context);
+        var handler = new UpdateProfile.Handler(context);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -803,9 +803,9 @@ public class UpdateProfileTests
         return new TestLearningTrackerDbContext(options);
     }
 
-    private static Update.Command CreateValidCommand()
+    private static UpdateProfile.Command CreateValidCommand()
     {
-        return new Update.Command(
+        return new UpdateProfile.Command(
             Guid.NewGuid(),
             new Name("John", "Doe"),
             "john.doe@example.com",
