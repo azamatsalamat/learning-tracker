@@ -43,6 +43,7 @@ public class Program
         builder.Services.AddValidatorsFromAssembly(assembly);
 
         builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection("Auth"));
+        builder.Services.Configure<ApplicationOptions>(builder.Configuration.GetSection("Application"));
 
         builder.Services.AddAuthentication(o => {
             o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -74,6 +75,16 @@ public class Program
         builder.Services.AddScoped<IResumeParser, BasicResumeParser>();
 
         var app = builder.Build();
+
+        var applicationOptions = builder.Configuration.GetSection("Application").Get<ApplicationOptions>()!;
+        if (applicationOptions.CorsOrigins.Any()) {
+            app.UseCors(x =>
+                x.WithOrigins(applicationOptions.CorsOrigins)
+                    .AllowCredentials()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+            );
+        }
 
         if (app.Environment.IsDevelopment())
         {
