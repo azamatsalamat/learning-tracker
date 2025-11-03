@@ -34,7 +34,7 @@ public class AuthController : LearningTrackerControllerBase
     /// Login user
     /// </summary>
     [HttpPost("login")]
-    [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken ct)
     {
         var result = await _mediator.Send(new Login.Command(request.Login, request.Password), ct);
