@@ -1,6 +1,7 @@
 using CSharpFunctionalExtensions;
 using FluentValidation;
 using LearningTracker.Database;
+using LearningTracker.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

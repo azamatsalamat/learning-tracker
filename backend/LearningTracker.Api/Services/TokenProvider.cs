@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using LearningTracker.Configurations;
+using LearningTracker.Entities;
 using LearningTracker.Features.Users;
 using LearningTracker.Services.Base;
 using Microsoft.Extensions.Options;

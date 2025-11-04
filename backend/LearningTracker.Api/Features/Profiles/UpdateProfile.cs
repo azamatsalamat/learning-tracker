@@ -1,9 +1,8 @@
 using CSharpFunctionalExtensions;
 using FluentValidation;
 using LearningTracker.Database;
-using LearningTracker.Domain.Entities;
 using LearningTracker.Domain.ValueObjects;
-using LearningTracker.Features.Profiles.Entities;
+using LearningTracker.Entities;
 using LearningTracker.Features.Profiles.Enums;
 using LearningTracker.Features.Profiles.ValueObjects;
 using MediatR;

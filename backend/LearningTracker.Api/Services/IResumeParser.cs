@@ -1,4 +1,4 @@
-using LearningTracker.Features.Profiles.Entities;
+using LearningTracker.Entities;
 
 namespace LearningTracker.Services;
 

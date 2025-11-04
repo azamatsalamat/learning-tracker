@@ -1,4 +1,4 @@
-namespace LearningTracker.Features.Profiles.Entities;
+namespace LearningTracker.Entities;
 
 public class Award {
     public string Name { get; protected set; }

@@ -1,3 +1,4 @@
+using LearningTracker.Entities;
 using LearningTracker.Features.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

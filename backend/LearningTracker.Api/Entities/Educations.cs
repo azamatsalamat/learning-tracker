@@ -1,6 +1,6 @@
 using LearningTracker.Features.Profiles.Enums;
 
-namespace LearningTracker.Features.Profiles.Entities;
+namespace LearningTracker.Entities;
 
 public class Education {
     public string School { get; protected set; }

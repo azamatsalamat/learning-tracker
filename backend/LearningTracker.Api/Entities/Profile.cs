@@ -1,9 +1,8 @@
-using LearningTracker.Domain.Entities;
 using LearningTracker.Domain.ValueObjects;
 using LearningTracker.Features.Profiles.ValueObjects;
 using SequentialGuid;
 
-namespace LearningTracker.Features.Profiles.Entities;
+namespace LearningTracker.Entities;
 
 public class Profile {
     public Guid Id { get; protected set; }

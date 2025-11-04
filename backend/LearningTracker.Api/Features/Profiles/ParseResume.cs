@@ -1,7 +1,7 @@
 using CSharpFunctionalExtensions;
 using FluentValidation;
 using LearningTracker.Database;
-using LearningTracker.Features.Profiles.Entities;
+using LearningTracker.Entities;
 using LearningTracker.Services;
 using MediatR;
 

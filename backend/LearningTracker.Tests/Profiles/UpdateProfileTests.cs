@@ -1,9 +1,8 @@
 using FluentAssertions;
 using LearningTracker.Database;
-using LearningTracker.Domain.Entities;
 using LearningTracker.Domain.ValueObjects;
+using LearningTracker.Entities;
 using LearningTracker.Features.Profiles;
-using LearningTracker.Features.Profiles.Entities;
 using LearningTracker.Features.Profiles.Enums;
 using LearningTracker.Features.Profiles.ValueObjects;
 using Microsoft.EntityFrameworkCore;

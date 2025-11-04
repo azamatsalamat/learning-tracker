@@ -1,6 +1,6 @@
 using SequentialGuid;
 
-namespace LearningTracker.Features.Users;
+namespace LearningTracker.Entities;
 
 public class User {
     public Guid Id { get; protected set; }

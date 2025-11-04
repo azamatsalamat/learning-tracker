@@ -1,3 +1,4 @@
+using LearningTracker.Entities;
 using LearningTracker.Features.Users;
 
 namespace LearningTracker.Services.Base;

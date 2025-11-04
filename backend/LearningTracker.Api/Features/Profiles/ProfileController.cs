@@ -1,4 +1,4 @@
-using LearningTracker.Features.Profiles.Entities;
+using LearningTracker.Entities;
 using LearningTracker.Services;
 using LearningTracker.Shared;
 using MediatR;
