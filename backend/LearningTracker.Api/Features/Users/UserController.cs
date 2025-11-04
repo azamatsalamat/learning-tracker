@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace LearningTracker.Features.Users;
 
 [ApiController]
-[Route("api/auth")]
-public class AuthController : LearningTrackerControllerBase
+[Route("api/user")]
+public class UserController : LearningTrackerControllerBase
 {
     private readonly IMediator _mediator;
     private readonly ITokenProvider _tokenProvider;
 
-    public AuthController(IMediator mediator, ITokenProvider tokenProvider)
+    public UserController(IMediator mediator, ITokenProvider tokenProvider)
     {
         _mediator = mediator;
         _tokenProvider = tokenProvider;
@@ -34,14 +34,16 @@ public class AuthController : LearningTrackerControllerBase
     /// Login user
     /// </summary>
     [HttpPost("login")]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken ct)
     {
         var result = await _mediator.Send(new Login.Command(request.Login, request.Password), ct);
         if (result.IsSuccess)
         {
             var accessToken = await _tokenProvider.GenerateAccessToken(result.Value, ct);
-            return HandleResult(Result.Success(accessToken));
+            var hasProfile = result.Value.Profile != null;
+            var loginResponse = new LoginResponse(accessToken, hasProfile);
+            return HandleResult(Result.Success(loginResponse));
         }
         return HandleResult(result);
     }

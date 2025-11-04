@@ -25,8 +25,12 @@ export default function LoginPage() {
 
     try {
       const response = await loginUser({ login, password });
-      authLogin(response);
-      router.push('/dashboard');
+      authLogin(response.accessToken);
+      if (response.hasProfile) {
+        router.push('/profile');
+      } else {
+        router.push('/profile/create');
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred during login');
       setIsLoading(false);

@@ -5,8 +5,13 @@ export interface LoginCredentials {
   password: string;
 }
 
-export async function loginUser(credentials: LoginCredentials): Promise<string> {
-  const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+export interface LoginResponse {
+  accessToken: string;
+  hasProfile: boolean;
+}
+
+export async function loginUser(credentials: LoginCredentials): Promise<LoginResponse> {
+  const response = await fetch(`${API_BASE_URL}/api/user/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

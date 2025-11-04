@@ -10,6 +10,8 @@ namespace LearningTracker.Features.Users;
 
 public record LoginRequest(string Login, string Password);
 
+public record LoginResponse(string AccessToken, bool HasProfile);
+
 public static class Login
 {
     public record Command(string Login, string Password) : IRequest<Result<User>>;
@@ -36,7 +38,10 @@ public static class Login
 
         public async Task<Result<User>> Handle(Command request, CancellationToken ct)
         {
-            var user = await _context.Set<User>().Where(x => x.Login == request.Login).FirstOrDefaultAsync(ct);
+            var user = await _context.Set<User>()
+                .Include(x => x.Profile)
+                .Where(x => x.Login == request.Login)
+                .FirstOrDefaultAsync(ct);
             if (user == null) {
                 return Result.Failure<User>("Invalid login or password");
             }
