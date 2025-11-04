@@ -3,6 +3,7 @@ using LearningTracker.Domain.ValueObjects;
 using LearningTracker.Entities;
 using LearningTracker.Features.Profiles.Enums;
 using LearningTracker.Features.Profiles.ValueObjects;
+using LearningTracker.Services.Base;
 
 namespace LearningTracker.Services.ResumeParsers;
 
@@ -17,7 +18,7 @@ public class BasicResumeParser : IResumeParser
         "technical skills", "skills"
     };
 
-    public Profile Parse(string resumeText)
+    public Profile Parse(Guid userId, string resumeText)
     {
         var lines = resumeText.Split('\n', StringSplitOptions.RemoveEmptyEntries)
             .Select(l => l.Trim())
@@ -41,6 +42,7 @@ public class BasicResumeParser : IResumeParser
         var awards = ExtractAwards(sections);
 
         return new Profile(
+            userId,
             name,
             email,
             phone,

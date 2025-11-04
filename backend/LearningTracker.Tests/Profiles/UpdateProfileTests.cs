@@ -825,6 +825,7 @@ public class UpdateProfileTests
     private static Profile CreateProfile()
     {
         return new Profile(
+            Guid.Parse("550e8400-e29b-41d4-a716-446655440000"),
             new Name("Original", "Name"),
             "original@example.com",
             "+1-555-0000",

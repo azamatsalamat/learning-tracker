@@ -7,6 +7,7 @@ public class User {
     public DateTime CreationDate { get; protected set; }
     public string Login { get; protected set; }
     public string Password { get; protected set; }
+    public virtual Profile? Profile { get; protected set; }
 
     protected User() { }
 

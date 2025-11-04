@@ -94,7 +94,9 @@ public class Program
             });
         });
 
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
+        builder.Services.AddScoped<IUserContext, UserContext>();
         builder.Services.AddScoped<ITokenProvider, TokenProvider>();
         builder.Services.AddScoped<TextExtractorService>();
         builder.Services.AddScoped<ITextExtractor, PdfTextExtractor>();
