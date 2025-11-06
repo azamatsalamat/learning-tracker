@@ -10,7 +10,7 @@ namespace LearningTracker.Features.Users;
 
 public record LoginRequest(string Login, string Password);
 
-public record LoginResponse(string AccessToken, bool HasProfile);
+public record LoginResponse(string AccessToken);
 
 public static class Login
 {
@@ -39,7 +39,6 @@ public static class Login
         public async Task<Result<User>> Handle(Command request, CancellationToken ct)
         {
             var user = await _context.Set<User>()
-                .Include(x => x.Profile)
                 .Where(x => x.Login == request.Login)
                 .FirstOrDefaultAsync(ct);
             if (user == null) {

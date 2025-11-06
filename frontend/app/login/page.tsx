@@ -3,7 +3,7 @@
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
-import { loginUser } from '@/lib/api';
+import { loginUser, getUserIdFromToken, getProfile } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -26,7 +26,11 @@ export default function LoginPage() {
     try {
       const response = await loginUser({ login, password });
       authLogin(response.accessToken);
-      if (response.hasProfile) {
+      
+      const userId = getUserIdFromToken(response.accessToken);
+      const profile = await getProfile(userId, response.accessToken);
+      
+      if (profile) {
         router.push('/profile');
       } else {
         router.push('/profile/create');

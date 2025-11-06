@@ -41,8 +41,7 @@ public class UserController : LearningTrackerControllerBase
         if (result.IsSuccess)
         {
             var accessToken = await _tokenProvider.GenerateAccessToken(result.Value, ct);
-            var hasProfile = result.Value.Profile != null;
-            var loginResponse = new LoginResponse(accessToken, hasProfile);
+            var loginResponse = new LoginResponse(accessToken);
             return HandleResult(Result.Success(loginResponse));
         }
         return HandleResult(result);

@@ -7,7 +7,6 @@ export interface LoginCredentials {
 
 export interface LoginResponse {
   accessToken: string;
-  hasProfile: boolean;
 }
 
 export async function loginUser(credentials: LoginCredentials): Promise<LoginResponse> {
@@ -24,5 +23,30 @@ export async function loginUser(credentials: LoginCredentials): Promise<LoginRes
     throw new Error(error || 'Login failed');
   }
 
-  return response.json();
+  return response.clone().json();
+}
+
+export function getUserIdFromToken(token: string): string {
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return payload.unique_name;
+}
+
+export async function getProfile(userId: string, token: string): Promise<unknown | null> {
+  const response = await fetch(`${API_BASE_URL}/api/profile/${userId}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    const error = await response.text();
+    throw new Error(error || 'Failed to fetch profile');
+  }
+
+  const profile = await response.clone().json();
+  return profile || null;
 }
