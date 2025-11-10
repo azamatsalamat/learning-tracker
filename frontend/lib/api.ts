@@ -9,6 +9,26 @@ export interface LoginResponse {
   accessToken: string;
 }
 
+export interface RegisterCredentials {
+  login: string;
+  password: string;
+}
+
+export async function registerUser(credentials: RegisterCredentials): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/api/user/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error || 'Registration failed');
+  }
+}
+
 export async function loginUser(credentials: LoginCredentials): Promise<LoginResponse> {
   const response = await fetch(`${API_BASE_URL}/api/user/login`, {
     method: 'POST',

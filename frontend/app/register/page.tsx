@@ -4,15 +4,16 @@ import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
-import { loginUser, getUserIdFromToken, getProfile } from '@/lib/api';
+import { registerUser, loginUser, getUserIdFromToken, getProfile } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,14 +23,22 @@ export default function LoginPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const response = await loginUser({ login, password });
-      authLogin(response.accessToken);
+      await registerUser({ login, password });
       
-      const userId = getUserIdFromToken(response.accessToken);
-      const profile = await getProfile(userId, response.accessToken);
+      const loginResponse = await loginUser({ login, password });
+      authLogin(loginResponse.accessToken);
+      
+      const userId = getUserIdFromToken(loginResponse.accessToken);
+      const profile = await getProfile(userId, loginResponse.accessToken);
       
       if (profile) {
         router.push('/profile');
@@ -37,7 +46,7 @@ export default function LoginPage() {
         router.push('/profile/create');
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred during login');
+      setError(err instanceof Error ? err.message : 'An error occurred during registration');
       setIsLoading(false);
     }
   };
@@ -46,9 +55,9 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-muted/50 px-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">Sign In</CardTitle>
+          <CardTitle className="text-2xl text-center">Sign Up</CardTitle>
           <CardDescription className="text-center">
-            Enter your credentials to access your account
+            Create a new account to get started
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -77,6 +86,22 @@ export default function LoginPage() {
                 placeholder="Enter your password"
                 autoComplete="new-password"
               />
+              <p className="text-xs text-muted-foreground">
+                Password must be at least 8 characters and contain uppercase, lowercase, number, and special character (!@#$%^&*.)
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                placeholder="Confirm your password"
+                autoComplete="new-password"
+              />
             </div>
 
             {error && (
@@ -86,13 +111,13 @@ export default function LoginPage() {
             )}
 
             <Button type="submit" disabled={isLoading} className="w-full">
-              {isLoading ? 'Signing in...' : 'Sign In'}
+              {isLoading ? 'Creating account...' : 'Sign Up'}
             </Button>
 
             <div className="text-center text-sm text-muted-foreground">
-              Don&apos;t have an account?{' '}
-              <Link href="/register" className="text-primary hover:underline">
-                Sign up
+              Already have an account?{' '}
+              <Link href="/login" className="text-primary hover:underline">
+                Sign in
               </Link>
             </div>
           </form>
@@ -101,3 +126,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
