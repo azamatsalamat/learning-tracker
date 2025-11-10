@@ -1,12 +1,13 @@
 using SequentialGuid;
 
-namespace LearningTracker.Features.Users;
+namespace LearningTracker.Entities;
 
 public class User {
     public Guid Id { get; protected set; }
     public DateTime CreationDate { get; protected set; }
     public string Login { get; protected set; }
     public string Password { get; protected set; }
+    public virtual Profile? Profile { get; protected set; }
 
     protected User() { }
 

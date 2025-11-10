@@ -1,8 +1,9 @@
 using CSharpFunctionalExtensions;
 using FluentValidation;
 using LearningTracker.Database;
-using LearningTracker.Features.Profiles.Entities;
+using LearningTracker.Entities;
 using LearningTracker.Services;
+using LearningTracker.Services.Base;
 using MediatR;
 
 namespace LearningTracker.Features.Profiles;
@@ -23,16 +24,18 @@ public static class ParseResume
     {
         private readonly IResumeParser _resumeParser;
         private readonly LearningTrackerDbContext _dbContext;
+        private readonly IUserContext _userContext;
 
-        public Handler(IResumeParser resumeParser, LearningTrackerDbContext dbContext)
+        public Handler(IResumeParser resumeParser, LearningTrackerDbContext dbContext, IUserContext userContext)
         {
             _resumeParser = resumeParser;
             _dbContext = dbContext;
+            _userContext = userContext;
         }
 
         public async Task<Result<Profile>> Handle(Command request, CancellationToken ct)
         {
-            var profile = _resumeParser.Parse(request.Content);
+            var profile = _resumeParser.Parse(_userContext.UserId, request.Content);
 
             _dbContext.Set<Profile>().Add(profile);
             await _dbContext.SaveChangesAsync(ct);

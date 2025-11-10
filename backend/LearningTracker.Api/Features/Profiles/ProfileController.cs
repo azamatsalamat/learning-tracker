@@ -1,12 +1,14 @@
-using LearningTracker.Features.Profiles.Entities;
+using LearningTracker.Entities;
 using LearningTracker.Services;
 using LearningTracker.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningTracker.Features.Profiles;
 
 [ApiController]
+[Authorize]
 [Route("api/profile")]
 public class ProfileController : LearningTrackerControllerBase
 {

@@ -1,4 +1,4 @@
-namespace LearningTracker.Domain.Entities;
+namespace LearningTracker.Entities;
 
 public class Publication {
     public string Title { get; protected set; }

@@ -1,4 +1,4 @@
-using LearningTracker.Features.Users;
+using LearningTracker.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,5 +21,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(u => u.Login)
             .IsUnique();
         builder.HasIndex(u => u.CreationDate);
+        builder.HasOne(x => x.Profile)
+            .WithOne(x => x.User)
+            .IsRequired(false)
+            .HasForeignKey<Profile>(x => x.Id)
+            .HasPrincipalKey<User>(x => x.Id);
     }
 }

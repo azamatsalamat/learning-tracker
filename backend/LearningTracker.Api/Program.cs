@@ -43,6 +43,7 @@ public class Program
         builder.Services.AddValidatorsFromAssembly(assembly);
 
         builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection("Auth"));
+        builder.Services.Configure<ApplicationOptions>(builder.Configuration.GetSection("Application"));
 
         builder.Services.AddAuthentication(o => {
             o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -65,15 +66,53 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddControllers();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(options =>
+        {
+            options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                Description = "JWT Authorization header using the Bearer scheme. Enter your token in the text input below."
+            });
 
+            options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+            {
+                {
+                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                    {
+                        Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                        {
+                            Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+        });
+
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
+        builder.Services.AddScoped<IUserContext, UserContext>();
         builder.Services.AddScoped<ITokenProvider, TokenProvider>();
         builder.Services.AddScoped<TextExtractorService>();
         builder.Services.AddScoped<ITextExtractor, PdfTextExtractor>();
         builder.Services.AddScoped<IResumeParser, BasicResumeParser>();
 
         var app = builder.Build();
+
+        var applicationOptions = builder.Configuration.GetSection("Application").Get<ApplicationOptions>()!;
+        if (applicationOptions.CorsOrigins.Any()) {
+            app.UseCors(x =>
+                x.WithOrigins(applicationOptions.CorsOrigins)
+                    .AllowCredentials()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+            );
+        }
 
         if (app.Environment.IsDevelopment())
         {
@@ -82,6 +121,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
 

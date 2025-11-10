@@ -1,4 +1,4 @@
-namespace LearningTracker.Features.Profiles.Entities;
+namespace LearningTracker.Entities;
 
 public class Experience {
     public string Company { get; protected set; }

@@ -1,6 +1,7 @@
 using CSharpFunctionalExtensions;
 using FluentValidation;
 using LearningTracker.Database;
+using LearningTracker.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 namespace LearningTracker.Features.Users;
 
 public record LoginRequest(string Login, string Password);
+
+public record LoginResponse(string AccessToken);
 
 public static class Login
 {
@@ -35,7 +38,9 @@ public static class Login
 
         public async Task<Result<User>> Handle(Command request, CancellationToken ct)
         {
-            var user = await _context.Set<User>().Where(x => x.Login == request.Login).FirstOrDefaultAsync(ct);
+            var user = await _context.Set<User>()
+                .Where(x => x.Login == request.Login)
+                .FirstOrDefaultAsync(ct);
             if (user == null) {
                 return Result.Failure<User>("Invalid login or password");
             }

@@ -1,7 +1,6 @@
 using FluentAssertions;
 using LearningTracker.Database;
-using LearningTracker.Domain.Entities;
-using LearningTracker.Features.Profiles.Entities;
+using LearningTracker.Entities;
 using LearningTracker.Features.Profiles.ValueObjects;
 using LearningTracker.Features.Users;
 using Microsoft.AspNetCore.Identity;
