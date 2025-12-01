@@ -96,12 +96,12 @@ export default function ProfilePage() {
         summary: summary || undefined,
         skills: skills ? skills.split(',').map(s => s.trim()).filter(s => s) : [],
         languages: languages ? languages.split(',').map(l => l.trim()).filter(l => l) : [],
-        experiences: experiences.length > 0 ? experiences : undefined,
-        educations: educations.length > 0 ? educations : undefined,
-        personalProjects: personalProjects.length > 0 ? personalProjects : undefined,
-        certifications: certifications.length > 0 ? certifications : undefined,
-        publications: publications.length > 0 ? publications : undefined,
-        awards: awards.length > 0 ? awards : undefined,
+        experiences: experiences,
+        educations: educations,
+        personalProjects: personalProjects,
+        certifications: certifications,
+        publications: publications,
+        awards: awards,
       };
 
       await updateProfile(updateData, token);

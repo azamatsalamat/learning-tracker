@@ -10,32 +10,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LearningTracker.Features.Profiles;
 
-public record UpdateProfileRequest(
-    Guid Id,
-    NameDto? Name,
-    string? Email,
-    string? Phone,
-    AddressDto? Address,
-    string? Summary,
-    string[]? Skills,
-    string[]? Languages,
-    ExperienceDto[]? Experiences,
-    EducationDto[]? Educations,
-    PersonalProjectDto[]? PersonalProjects,
-    CertificationDto[]? Certifications,
-    PublicationDto[]? Publications,
-    AwardDto[]? Awards
-);
-
-public record NameDto(string FirstName, string LastName);
-public record AddressDto(string City, string Country);
-public record ExperienceDto(string Company, string Position, string Description, DateTime StartDate, DateTime? EndDate, string[]? Technologies, string[]? Responsibilities, string[]? Achievements);
-public record EducationDto(string School, Degree Degree, string Major, DateTime StartDate, DateTime? EndDate, string[]? Courses, string[]? Achievements);
-public record PersonalProjectDto(string Name, string Description, string[]? Technologies);
-public record CertificationDto(string Name, string Issuer, DateTime IssueDate, DateTime? ExpirationDate, string? CredentialId, string? CredentialUrl);
-public record PublicationDto(string Title, string Description, string[]? Authors, string? Link);
-public record AwardDto(string Name, string Issuer, DateTime Date, string? Description);
-
 public static class UpdateProfile
 {
     public record Command(
